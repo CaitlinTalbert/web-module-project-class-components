@@ -62,6 +62,22 @@ class App extends React.Component {
     }); 
   }
 
+  handleToggle = (clickedId) => {
+    this.setState({ 
+      ...this.state, 
+      todos: this.state.todos.map(todo => {
+        if (todo.id === clickedId) {
+          return {
+            ...todo, 
+            completed: !todo.completed
+          }
+        } else {
+          return todo
+        }
+      })
+    })
+  }
+
 
 
   render() {
@@ -71,7 +87,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>My To-Do List</h1>
-          <TodoList  todos={todos} />
+          <TodoList handleToggle={this.handleToggle} todos={todos} />
           <Form handleSubmit={this.handleSubmit} handleAdd={this.handleAdd}/>
           <button onClick={this.handleClear}>Clear Completed</button>
       </div>
