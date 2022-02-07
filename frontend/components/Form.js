@@ -1,14 +1,12 @@
 import React from 'react'
 
-
-const initialState = {
-  input: ''
-}
-
-
 export default class Form extends React.Component {
-  
-  state = initialState; 
+  constructor() {
+    super(); 
+    this.state = {
+      input: ""
+    }
+  }
 
 
   handleChange = (e) => {
