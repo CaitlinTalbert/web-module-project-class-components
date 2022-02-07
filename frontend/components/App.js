@@ -1,5 +1,7 @@
 import React from 'react'
 import Form from './Form';
+import Todo from './Todo';
+
 
 class App extends React.Component {
   constructor() {
@@ -15,6 +17,11 @@ class App extends React.Component {
           name: 'Bake Cookies',
           id: 1528817084358,
           completed: false
+        }, 
+        {
+          name: 'Walk Momo and Kiki', 
+          id: 1528817084359, 
+          completed: false
         }
       ]
     }
@@ -22,16 +29,15 @@ class App extends React.Component {
 
   render() {
     const { todos } = this.state; 
-    console.log(todos)
 
 
     return (
       <div>
         <h1>My To-Do List</h1>
         <ul>
-          {
+          { 
             todos.map(todo => {
-              return (<li key={todo.id}>{todo.name}</li>)
+              return (<Todo key={todo.id} todo={todo}/>)
             })
           }
         </ul>
