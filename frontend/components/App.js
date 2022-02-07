@@ -5,6 +5,11 @@ export default class App extends React.Component {
     return (
       <div>
         Todo App
+        <form>
+          <input placeholder="...todo"/>
+          <button>Add To-Do</button>
+          <button>Clear Completed</button>
+        </form>
       </div>
     )
   }
