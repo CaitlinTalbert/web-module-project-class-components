@@ -45,17 +45,28 @@ class App extends React.Component {
     })
   }
 
+  /**
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.name !== prevState.name)
+    axios.post(`http://localhost:9000/api/todos${this.state.name}`)
+      .then(res => {
+        console.log(res)
+      })
 
+  }
+  */
 
   handleAdd = (name) => {
-
     const newTodo = {
       name: name, 
       id: Date.now(), 
       completed: false 
     }
-
-
+    const payload = {name : ""}
+    axios.post(`http://localhost:9000/api/todos`, this.state.name, payload)
+    .then(res => {
+      console.log(res)
+    })
     this.setState({ 
       ...this.state, 
       todos: [...this.state.todos, newTodo]
