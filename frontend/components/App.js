@@ -75,7 +75,12 @@ class App extends React.Component {
     }); 
   }
 
+
+
   handleToggle = (clickedId) => {
+    axios.get(`http://localhost:9000/api/todos/${clickedId}`)
+      .then(res => {
+        console.log(res.data)     
     this.setState({ 
       ...this.state, 
       todos: this.state.todos.map(todo => {
@@ -89,7 +94,13 @@ class App extends React.Component {
         }
       })
     })
+  })
+      .catch(err => {
+      console.log(err)
+    })
   }
+  
+
 
 
 
