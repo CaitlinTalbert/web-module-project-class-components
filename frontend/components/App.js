@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from './Form';
 import TodoList from './TodoList';
-
+import axios from 'axios';
 
 class App extends React.Component {
   constructor() {
@@ -30,6 +30,19 @@ class App extends React.Component {
         }
       ]
     }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:9000/api/todos')
+    .then(res => {
+      console.log(res.data.data)
+      this.setState({ 
+        ...this.state, todos: res.data.data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
 
