@@ -45,25 +45,14 @@ class App extends React.Component {
     })
   }
 
-  /**
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.name !== prevState.name)
-    axios.post(`http://localhost:9000/api/todos${this.state.name}`)
-      .then(res => {
-        console.log(res)
-      })
-
-  }
-  */
-
   handleAdd = (name) => {
     const newTodo = {
       name: name, 
       id: Date.now(), 
       completed: false 
     }
-    const payload = {name : ""}
-    axios.post(`http://localhost:9000/api/todos`, this.state.name, payload)
+    //const payload = {name : ""}
+    axios.post(`http://localhost:9000/api/todos`, { name: this.state.name })
     .then(res => {
       console.log(res)
     })
@@ -111,7 +100,20 @@ class App extends React.Component {
     })
   }
   
-
+  toggleCompleted = (id) => () => {
+    axios.patch(`http://localhost:9000/api/todos/${id}`)
+      .then(res => {
+        this.setState({ 
+          ...this.state, todos: this.state.todos.map(todo => {
+            if (todo.id !== id) return todo 
+            return res.data.data
+          })
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
 
 
@@ -122,7 +124,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>My To-Do List</h1>
-          <TodoList handleToggle={this.handleToggle} todos={todos} />
+          <TodoList handleToggle={this.handleToggle} todos={todos} onClick={this.toggleCompleted}/>
           <Form handleSubmit={this.handleSubmit} handleAdd={this.handleAdd}/>
           <button onClick={this.handleClear}>Clear Completed</button>
       </div>
